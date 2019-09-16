@@ -16,7 +16,6 @@ class EchartsArea extends Component {
       <ReactEcharts
         option={this.getOption(this.props.timeLineData)}
         style={{height: '350px', width: '1000px'}}
-        notMerge={true}
         className='echarts-area' />
     )
   }
@@ -24,18 +23,17 @@ class EchartsArea extends Component {
   getOption (timeLineData) {
     const option = {
       xAxis: {
-        type: 'time',
+        type: 'category',
         data: timeLineData.map(item => item.time)
       },
       yAxis: {
         type: 'value'
       },
       series: [{
-          data: timeLineData.map(item => item.data),
-          type: 'line'
-        }]
-      }
-    console.log(option)
+        data: timeLineData.map(item => item.apm),
+        type: 'line'
+      }]
+    }
     return option
   }
 
