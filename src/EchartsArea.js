@@ -22,6 +22,15 @@ class EchartsArea extends Component {
 
   getOption (timeLineData) {
     const option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+        },
+        formatter: function (params) {
+          return params[0].data
+        }
+      },
       xAxis: {
         type: 'category',
         data: timeLineData.map(item => item.time)
@@ -31,7 +40,8 @@ class EchartsArea extends Component {
       },
       series: [{
         data: timeLineData.map(item => item.apm),
-        type: 'line'
+        type: 'line',
+        smooth: true
       }]
     }
     return option
