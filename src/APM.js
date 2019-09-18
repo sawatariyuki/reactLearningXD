@@ -5,15 +5,21 @@ class APM extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {
-      hitCount: 0,
-      isKeyPressed: false,
-      timeLineData: []
-    }
+    this.state = this.getInitialState()
     // bind handles
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
     this.reset = this.reset.bind(this)
+  }
+
+  getInitialState () {
+    return {
+      hitCount: 0,
+      isKeyPressed: false,
+      timeLineData: [],
+      startTime: null,
+      apm: 0
+    }
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -70,7 +76,7 @@ class APM extends Component {
   }
 
   reset () {
-    this.replaceState(() => ({}))
+    this.setState(() => this.getInitialState())
   }
 
 }
