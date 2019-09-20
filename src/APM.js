@@ -1,78 +1,82 @@
-import React, { Component, Fragment } from 'react'
-import EchartsArea from './EchartsArea'
+import React, { Component, Fragment } from 'react';
+import EchartsArea from './EchartsArea';
 
 class APM extends Component {
-
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       hitCount: 0,
       isKeyPressed: false,
-      timeLineData: []
-    }
+      timeLineData: [],
+    };
     // bind handles
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleKeyUp = this.handleKeyUp.bind(this)
-    this.reset = this.reset.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     if (nextState.timeLineData.length === 0) {
-      return true
+      return true;
     }
     if (nextState.timeLineData.length !== this.state.timeLineData.length) {
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
-  componentDidMount () {
-    document.addEventListener("keydown", this.handleKeyDown)
-    document.addEventListener("keyup", this.handleKeyUp)
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keyup', this.handleKeyUp);
   }
 
-  render () {
+  render() {
     return (
-      <Fragment>
-        <div>{this.state.hitCount}hits</div>
-        <div>{this.state.apm}hit/m</div>
+      <>
+        <div>
+          {this.state.hitCount}
+          hits
+        </div>
+        <div>
+          {this.state.apm}
+          hit/m
+        </div>
         <button onClick={this.reset}>Reset</button>
         <EchartsArea timeLineData={this.state.timeLineData} />
-      </Fragment>
-    )
+      </>
+    );
   }
 
-  handleKeyDown () {
-    this.setState(prevState => {
-      const hitCount = prevState.hitCount
-      let timeLineData = [...prevState.timeLineData]
-      let newState = {}
+  handleKeyDown() {
+    this.setState((prevState) => {
+      const { hitCount } = prevState;
+      const timeLineData = [...prevState.timeLineData];
+      const newState = {};
       if (prevState.isKeyPressed) {
-        return prevState
+        return prevState;
       }
-      newState.hitCount = hitCount + 1
-      newState.isKeyPressed = true
-      const now = new Date().getTime()
+      newState.hitCount = hitCount + 1;
+      newState.isKeyPressed = true;
+      const now = new Date().getTime();
       if (!prevState.startTime) {
-        newState.startTime = now
+        newState.startTime = now;
       } else {
         // calc apm
-        newState.apm = newState.hitCount * 60000 / (now - prevState.startTime)
-        timeLineData.push({time: now, apm: newState.apm})
-        newState.timeLineData = timeLineData
+        newState.apm = (newState.hitCount * 60000) / (now - prevState.startTime);
+        timeLineData.push({ time: now, apm: newState.apm });
+        newState.timeLineData = timeLineData;
       }
-      return newState
-    })
+      return newState;
+    });
   }
 
-  handleKeyUp () {
-    this.setState(() => ({isKeyPressed: false}))
+  handleKeyUp() {
+    this.setState(() => ({ isKeyPressed: false }));
   }
 
-  reset () {
-    this.replaceState(() => ({}))
+  reset() {
+    this.replaceState(() => ({}));
   }
-
 }
 
-export default APM
+export default APM;
