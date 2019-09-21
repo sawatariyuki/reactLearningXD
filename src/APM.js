@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import EchartsArea from './EchartsArea';
 
 class APM extends Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props);
     this.state = {
@@ -9,13 +10,33 @@ class APM extends Component {
       isKeyPressed: false,
       timeLineData: [],
     };
+=======
+
+  constructor (props) {
+    super(props)
+    this.state = this.getInitialState()
+>>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
     // bind handles
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.reset = this.reset.bind(this);
   }
 
+<<<<<<< HEAD
   shouldComponentUpdate(nextProps, nextState) {
+=======
+  getInitialState () {
+    return {
+      hitCount: 0,
+      isKeyPressed: false,
+      timeLineData: [],
+      startTime: null,
+      apm: 0
+    }
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+>>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
     if (nextState.timeLineData.length === 0) {
       return true;
     }
@@ -74,8 +95,13 @@ class APM extends Component {
     this.setState(() => ({ isKeyPressed: false }));
   }
 
+<<<<<<< HEAD
   reset() {
     this.replaceState(() => ({}));
+=======
+  reset () {
+    this.setState(() => this.getInitialState())
+>>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
   }
 }
 

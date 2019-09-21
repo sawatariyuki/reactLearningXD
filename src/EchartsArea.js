@@ -4,23 +4,10 @@ import ReactEcharts from 'echarts-for-react';
 class EchartsArea extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      timeLineData: [],
-    };
     this.getOption = this.getOption.bind(this);
   }
 
-  render() {
-    return (
-      <ReactEcharts
-        option={this.getOption(this.props.timeLineData)}
-        style={{ height: '350px', width: '1000px' }}
-        className="echarts-area"
-      />
-    );
-  }
-
-  getOption(timeLineData) {
+  static getOption(timeLineData) {
     const option = {
       tooltip: {
         trigger: 'axis',
@@ -45,6 +32,16 @@ class EchartsArea extends Component {
       }],
     };
     return option;
+  }
+
+  render() {
+    return (
+      <ReactEcharts
+        option={this.getOption(this.props.timeLineData)}
+        style={{ height: '350px', width: '1000px' }}
+        className="echarts-area"
+      />
+    );
   }
 }
 
