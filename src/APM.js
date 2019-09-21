@@ -1,28 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import EchartsArea from './EchartsArea';
 
 class APM extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hitCount: 0,
-      isKeyPressed: false,
-      timeLineData: [],
-    };
+    this.state = this.getInitialState();
     // bind handles
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.reset = this.reset.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.timeLineData.length === 0) {
-      return true;
-    }
-    if (nextState.timeLineData.length !== this.state.timeLineData.length) {
-      return true;
-    }
-    return false;
+  getInitialState() {
+    return {
+      hitCount: 0,
+      isKeyPressed: false,
+      timeLineData: [],
+      startTime: null,
+      apm: 0,
+    };
   }
 
   componentDidMount() {
@@ -30,21 +26,14 @@ class APM extends Component {
     document.addEventListener('keyup', this.handleKeyUp);
   }
 
-  render() {
-    return (
-      <>
-        <div>
-          {this.state.hitCount}
-          hits
-        </div>
-        <div>
-          {this.state.apm}
-          hit/m
-        </div>
-        <button onClick={this.reset}>Reset</button>
-        <EchartsArea timeLineData={this.state.timeLineData} />
-      </>
-    );
+  shouldComponentUpdate(_nextProps, nextState) {
+    if (nextState.timeLineData.length === 0) {
+      return true;
+    }
+    if (nextState.timeLineData.length !== this.state.timeLineData.length) {
+      return true;
+    }
+    return false;
   }
 
   handleKeyDown() {
@@ -75,7 +64,24 @@ class APM extends Component {
   }
 
   reset() {
-    this.replaceState(() => ({}));
+    this.setState(() => this.getInitialState());
+  }
+
+  render() {
+    return (
+      <>
+        <div>
+          {this.state.hitCount}
+          hits
+        </div>
+        <div>
+          {this.state.apm}
+          hit/m
+        </div>
+        <button type="button" onClick={this.reset}>Reset</button>
+        <EchartsArea timeLineData={this.state.timeLineData} />
+      </>
+    );
   }
 }
 
