@@ -7,7 +7,7 @@ class EchartsArea extends Component {
     this.getOption = this.getOption.bind(this);
   }
 
-  static getOption(timeLineData) {
+  getOption(timeLineData) {
     const option = {
       tooltip: {
         trigger: 'axis',
