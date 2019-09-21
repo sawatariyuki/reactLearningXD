@@ -1,52 +1,51 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
 
 class EchartsArea extends Component {
-
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      timeLineData: []
-    }
-    this.getOption = this.getOption.bind(this)
+      timeLineData: [],
+    };
+    this.getOption = this.getOption.bind(this);
   }
 
-  render () {
+  render() {
     return (
       <ReactEcharts
         option={this.getOption(this.props.timeLineData)}
-        style={{height: '350px', width: '1000px'}}
-        className='echarts-area' />
-    )
+        style={{ height: '350px', width: '1000px' }}
+        className="echarts-area"
+      />
+    );
   }
 
-  getOption (timeLineData) {
+  getOption(timeLineData) {
     const option = {
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-            type: 'cross',
+          type: 'cross',
         },
-        formatter: function (params) {
-          return params[0].data
-        }
+        formatter(params) {
+          return params[0].data;
+        },
       },
       xAxis: {
         type: 'category',
-        data: timeLineData.map(item => item.time)
+        data: timeLineData.map((item) => item.time),
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
       },
       series: [{
-        data: timeLineData.map(item => item.apm),
+        data: timeLineData.map((item) => item.apm),
         type: 'line',
-        smooth: true
-      }]
-    }
-    return option
+        smooth: true,
+      }],
+    };
+    return option;
   }
-
 }
 
-export default EchartsArea
+export default EchartsArea;
