@@ -1,49 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import EchartsArea from './EchartsArea';
 
 class APM extends Component {
-<<<<<<< HEAD
   constructor(props) {
     super(props);
-    this.state = {
-      hitCount: 0,
-      isKeyPressed: false,
-      timeLineData: [],
-    };
-=======
-
-  constructor (props) {
-    super(props)
-    this.state = this.getInitialState()
->>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
+    this.state = this.getInitialState();
     // bind handles
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.reset = this.reset.bind(this);
   }
 
-<<<<<<< HEAD
-  shouldComponentUpdate(nextProps, nextState) {
-=======
-  getInitialState () {
+  getInitialState() {
     return {
       hitCount: 0,
       isKeyPressed: false,
       timeLineData: [],
       startTime: null,
-      apm: 0
-    }
-  }
-
-  shouldComponentUpdate (nextProps, nextState) {
->>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
-    if (nextState.timeLineData.length === 0) {
-      return true;
-    }
-    if (nextState.timeLineData.length !== this.state.timeLineData.length) {
-      return true;
-    }
-    return false;
+      apm: 0,
+    };
   }
 
   componentDidMount() {
@@ -51,21 +26,14 @@ class APM extends Component {
     document.addEventListener('keyup', this.handleKeyUp);
   }
 
-  render() {
-    return (
-      <>
-        <div>
-          {this.state.hitCount}
-          hits
-        </div>
-        <div>
-          {this.state.apm}
-          hit/m
-        </div>
-        <button onClick={this.reset}>Reset</button>
-        <EchartsArea timeLineData={this.state.timeLineData} />
-      </>
-    );
+  shouldComponentUpdate(_nextProps, nextState) {
+    if (nextState.timeLineData.length === 0) {
+      return true;
+    }
+    if (nextState.timeLineData.length !== this.state.timeLineData.length) {
+      return true;
+    }
+    return false;
   }
 
   handleKeyDown() {
@@ -95,13 +63,25 @@ class APM extends Component {
     this.setState(() => ({ isKeyPressed: false }));
   }
 
-<<<<<<< HEAD
   reset() {
-    this.replaceState(() => ({}));
-=======
-  reset () {
-    this.setState(() => this.getInitialState())
->>>>>>> e54b56c1897012fe6a04e0f45898cc5297a7863b
+    this.setState(() => this.getInitialState());
+  }
+
+  render() {
+    return (
+      <>
+        <div>
+          {this.state.hitCount}
+          hits
+        </div>
+        <div>
+          {this.state.apm}
+          hit/m
+        </div>
+        <button type="button" onClick={this.reset}>Reset</button>
+        <EchartsArea timeLineData={this.state.timeLineData} />
+      </>
+    );
   }
 }
 
